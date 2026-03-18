@@ -133,3 +133,40 @@ erDiagram
 29. Mostrar los libros con stock bajo (menos de 10 unidades).
 
 30. Mostrar los autores cuyos libros han generado más ingresos.
+
+### MariaDB instalación y configuración inicial
+```bash
+sudo apt install mariadb-server
+sudo apt install mariadb-client
+
+sudo mysql_secure_installation
+```
+
+
+### Conectarse
+```bash
+mariadb -u local -p
+
+mysql -u local -p
+
+```
+
+### Cargar base de datos
+```bash
+mariadb -u local -p < library.sql
+mysql -u local -p < library.sql
+```
+
+### Exploración básica
+```bash
+SHOW DATABASES;
+
+USE <db_name>;
+
+SHOW TABLES;
+
+DESCRIBE <table_name>
+DESC <table_name>
+
+SHOW CREATE TABLE <table_name>
+```
