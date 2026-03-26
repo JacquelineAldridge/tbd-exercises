@@ -1,20 +1,22 @@
 # Ejercicios de Python básico
 
-**1.** Crea una función `analizar_ventas(ventas_mensuales)` que reciba un diccionario de ventas:
 
+**1.** Crea una función `crear_perfil(nombre, edad, altura, es_estudiante)` que reciba los datos de una persona y retorne un string formateado con toda la información usando f-strings.
+
+**2.** Crea una función `contar_hasta(limite, parar_en)` que imprima números del 1 hasta `limite`, pero se detenga si encuentra el número `parar_en`.
+
+**3.** Crea funciones para manejar una lista de frutas: `obtener_primera_y_ultima(frutas)`, `agregar_fruta(frutas, nueva_fruta)`, y `mostrar_frutas(frutas)` que muestren toda la lista.
+
+**4.** Crea una función `calcular_total_compra(lista_compras)` que reciba una lista de productos con precios y retorne el costo total. También crea `agregar_producto(lista, nombre, precio)` para agregar productos a la lista.
+
+**5.** Crea una función `limpiar_nombres(nombres)` que reciba una lista como:
 ```python
-ventas_mensuales = {
-    "Enero": [120000, 85000, 95000, 110000],
-    "Febrero": [130000, 90000, 88000, 125000],
-    "Marzo": [140000, 95000, 105000, 135000]
-}
+nombres = ["ana maría", "CARLOS PÉREZ", "  luis  ", "María José"]
 ```
 
-La función debe retornar un diccionario con el total de cada mes y cuál fue el mejor mes.
+Debe retornar los nombres limpios (sin espacios extra, primera letra mayúscula) y contar cuántos tienen más de una palabra.
 
-**2.** Crea una función `crear_perfil(nombre, edad, altura, es_estudiante)` que reciba los datos de una persona y retorne un string formateado con toda la información usando f-strings.
-
-**3.** Crea una función `analizar_productos(productos)` que reciba una lista de productos:
+**6.** Crea una función `analizar_productos(productos)` que reciba una lista de productos:
 ```python
 productos = [
     {"nombre": "Laptop", "precio": 800000, "categoria": "Tecnología"},
@@ -26,22 +28,14 @@ productos = [
 
 La función debe retornar el precio promedio y el producto más caro.
 
-**4.** Crea una función `contar_hasta(limite, parar_en)` que imprima números del 1 hasta `limite`, pero se detenga si encuentra el número `parar_en`.
-
-**5.** Crea una función `calcular_total_compra(lista_compras)` que reciba una lista de productos con precios y retorne el costo total. También crea `agregar_producto(lista, nombre, precio)` para agregar productos a la lista.
-
-**6.** Crea una función `limpiar_nombres(nombres)` que reciba una lista como:
-```python
-nombres = ["ana maría", "CARLOS PÉREZ", "  luis  ", "María José"]
-```
-
-Debe retornar los nombres limpios (sin espacios extra, primera letra mayúscula) y contar cuántos tienen más de una palabra.
-
 **7.** Crea una función `crear_libro(titulo, autor, año, paginas)` que retorne un diccionario con la información del libro, y otra función `mostrar_libro(libro)` que imprima la información de forma ordenada.
 
 **8.** Crea una función `filtrar_numeros(lista_numeros)` que reciba una lista de números del 1 al 20 y retorne tres listas: números pares, cuadrados de números impares, y números divisibles por 3.
 
-**9.** Crea una función `comparar_temperaturas(temperaturas)` que reciba un diccionario:
+**9.** Crea una función `evaluar_nota(nota)` que reciba una nota entre 1.0 y 7.0 y retorne si está "Aprobado", "Reprobado", o "Aprobado con distinción" (reprobado < 4.0, aprobado >= 4.0, aprobado con distinción >= 6.0 ).
+
+
+**10.** Crea una función `comparar_temperaturas(temperaturas)` que reciba un diccionario:
 
 ```python
 temperaturas = {
@@ -52,11 +46,19 @@ temperaturas = {
 
 Debe retornar cuál ciudad tiene mayor temperatura promedio y cuál tiene mayor variación.
 
-**10.** Crea una función `evaluar_nota(nota)` que reciba una nota entre 1.0 y 7.0 y retorne si está "Aprobado", "Reprobado", o "Aprobado con distinción".
-
 **11.** Crea una función `calcular_gasto_promedio(gastos)` que reciba una lista de gastos diarios y retorne el promedio. Luego crea `analizar_gastos_semanales(semanas)` que use la función anterior para analizar múltiples semanas.
 
-**12.** Crea funciones para manejar una lista de frutas: `obtener_primera_y_ultima(frutas)`, `agregar_fruta(frutas, nueva_fruta)`, y `mostrar_frutas(frutas)` que muestren toda la lista.
+La función debe retornar un diccionario con el total de cada mes y cuál fue el mejor mes.
+
+**12.** Crea una función `analizar_ventas(ventas_mensuales)` que reciba un diccionario de ventas:
+
+```python
+ventas_mensuales = {
+    "Enero": [120000, 85000, 95000, 110000],
+    "Febrero": [130000, 90000, 88000, 125000],
+    "Marzo": [140000, 95000, 105000, 135000]
+}
+```
 
 **13.** Crea funciones para calcular estadísticas de un equipo de fútbol:
 
