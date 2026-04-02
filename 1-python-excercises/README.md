@@ -48,8 +48,6 @@ Debe retornar cuál ciudad tiene mayor temperatura promedio y cuál tiene mayor 
 
 **11.** Crea una función `calcular_gasto_promedio(gastos)` que reciba una lista de gastos diarios y retorne el promedio. Luego crea `analizar_gastos_semanales(semanas)` que use la función anterior para analizar múltiples semanas.
 
-La función debe retornar un diccionario con el total de cada mes y cuál fue el mejor mes.
-
 **12.** Crea una función `analizar_ventas(ventas_mensuales)` que reciba un diccionario de ventas:
 
 ```python
@@ -59,6 +57,7 @@ ventas_mensuales = {
     "Marzo": [140000, 95000, 105000, 135000]
 }
 ```
+La función debe retornar un diccionario con el total de cada mes y cuál fue el mejor mes.
 
 **13.** Crea funciones para calcular estadísticas de un equipo de fútbol:
 
