@@ -36,7 +36,7 @@ Crear función que genere al menos:
 - 3 categorías (Ficción, Ciencia, Historia)
 - 5 autores
 - 10 libros distribuidos entre categorías
-- 8 pedidos con nombres de clientes
+- 8 pedidos
 
 ## Parte 3: Modificar Datos
 
