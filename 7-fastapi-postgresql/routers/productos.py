@@ -9,7 +9,7 @@ from schemas.productos import ProductCreate, ProductRead
 
 router = APIRouter(prefix="/products", tags=["Productos"])
 
-@router.get("/")
+@router.get("/", response_model=list[ProductRead])
 async def listar_productos(db: Session = Depends(get_db)):
     productos = db.execute(select(models.Producto)).scalars().all()
     return productos
