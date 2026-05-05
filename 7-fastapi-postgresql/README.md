@@ -33,7 +33,8 @@ Creá los siguientes schemas:
 - **`OrdenCreate`** — todos los campos excepto el id 
 - **`OrdenUpdate`** — `cantidad` y `estado`, ambos opcionales.
 - **`OrdenRead`** — mismos campos que `OrdenCreate` más `id`
-Puedes validar el email utilizando EmailStr
+
+Puedes validar el email utilizando el tipo de Pydantic `EmailStr`
 
 ## Paso 3 — Endpoints (`routers/clientes.py`)
 
