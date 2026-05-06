@@ -14,7 +14,7 @@ async def listar_productos(db: Session = Depends(get_db)):
     productos = db.execute(select(models.Producto)).scalars().all()
     return productos
 
-@router.post("/", status_code=204)
+@router.post("/", status_code=201)
 async def crear_producto(producto: ProductCreate ,db: Session = Depends(get_db)):
     print(f"{producto} \n {producto.model_dump()}")
     nuevo_producto = models.Producto(**producto.model_dump())
@@ -22,6 +22,35 @@ async def crear_producto(producto: ProductCreate ,db: Session = Depends(get_db))
     db.commit()
     db.refresh(nuevo_producto)
     return nuevo_producto
+
+@router.post("/productos", status_code=201)
+async def crear_productos(
+    productos: list[ProductCreate],
+    db: Session = Depends(get_db)
+):
+    # Método 1
+    # nuevos_productos = []
+
+    # for producto in productos:
+    #     nuevo_producto = models.Producto(**producto.model_dump())
+    #     db.add(nuevo_producto)
+    #     nuevos_productos.append(nuevo_producto)
+
+    # db.commit()
+
+    # Método 2
+    nuevos_productos = [
+        models.Producto(**producto.model_dump())
+        for producto in productos
+    ]
+    db.add_all(nuevos_productos)
+    
+    db.commit()
+
+    for producto in nuevos_productos:
+        db.refresh(producto)
+
+    return nuevos_productos
 
 @router.delete("/{id}", status_code=204)
 async def eliminar_producto(id: int,db: Session = Depends(get_db) ):
