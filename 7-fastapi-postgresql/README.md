@@ -79,7 +79,7 @@ Al utilizar SQLAlchemy para modelar una relación muchos a muchos, la tabla inte
 Esto permite que, al crear una orden, puedas enviar los productos desde el endpoint de órdenes (por ejemplo, como una lista de producto_ids). Luego, en el backend, esos IDs se usan para buscar los productos en la base de datos y asignarlos a la orden.
 
 De esta forma, no necesitas insertar manualmente en la tabla intermedia: simplemente trabajas con los objetos y SQLAlchemy se encarga automáticamente de crear las relaciones.
-```
+
 
 
 ### Qué hacer si ya tienes datos en la tabla
