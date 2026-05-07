@@ -77,6 +77,7 @@ Dado que la tabla Orden y Cliente ya existen se puede generar un problema, dado 
 La opción más rápida es añadir la columna directamente en PostgreSQL con `ALTER TABLE`:
 
 ```sql
+ALTER TABLE ordenes ALTER COLUMN cliente_id SET NOT NULL; 
 ALTER TABLE ordenes ADD COLUMN cliente_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE;
 ```
 
