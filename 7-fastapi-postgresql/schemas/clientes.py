@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
-
+from schemas.utils import OrdenBase
 class ClientRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
@@ -14,12 +14,14 @@ class ClientRead(BaseModel):
     activo: bool
     creado_en: datetime
     
+    ordenes: list[OrdenBase] = None
+        
 class ClientCreate(BaseModel):
     nombre: str = Field(max_length=100)
     email: EmailStr = Field(max_length=150)
     telefono: Optional[str] = Field(default=None, max_length= 20)
     activo: Optional[bool] = True
-    #creaado_en: datetime = None
+    #creado_en: datetime = None
     
 class ClientUpdate(BaseModel):
     nombre: Optional[str] =  Field(max_length=100, default = None)
