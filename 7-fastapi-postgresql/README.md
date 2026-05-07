@@ -68,18 +68,6 @@ Agrega las siguientes relaciones:
 
 Recuerda que puedes usar `secondary=tabla_intermedia` para indicar que la relación pasa por la tabla intermedia y back_populates para definir el lado inverso de la relación.
 
-Actualiza los esquemas para que incluyan la información de las relaciones. Por ejemplo, `OrdenRead` debería incluir el `cliente_id` y una lista de productos asociados a esa orden. En `ClientRead` pueden incluir las órdenes asociadas. Puedes importar `ProductoRead` desde schemas.productos para usarlo en `OrdenRead`.
-
-**Importante**: Si dos schemas se importan entre sí, se produce un error de importación circular. Para evitarlo, utiliza modelos simplificados (como ClientSimple) y/o mueve los modelos compartidos a un archivo común.
-
-### Cambios en el router (`routers/ordenes.py`)
-
-Al utilizar SQLAlchemy para modelar una relación muchos a muchos, la tabla intermedia no se manipula directamente desde el código, sino a través de las relaciones definidas en los modelos.
-
-Esto permite que, al crear una orden, puedas enviar los productos desde el endpoint de órdenes (por ejemplo, como una lista de producto_ids). Luego, en el backend, esos IDs se usan para buscar los productos en la base de datos y asignarlos a la orden.
-
-De esta forma, no necesitas insertar manualmente en la tabla intermedia: simplemente trabajas con los objetos y SQLAlchemy se encarga automáticamente de crear las relaciones.
-
 
 
 ### Qué hacer si ya tienes datos en la tabla
@@ -95,6 +83,20 @@ ALTER TABLE ordenes ADD COLUMN cliente_id INTEGER REFERENCES clientes(id) ON DEL
 Luego utiliza `PATCH /ordenes/{orden_id}` para asignar el `cliente_id` a cada orden existente. Una vez que todas las filas tengan valor, puedes cambiarla a `NOT NULL`, para que a futuro no se permita tener órdenes sin cliente asignado.
 
 `create_all()` solo **crea** tablas que no existen, no modifica las que ya existen. Si agregas una columna a un modelo, la base de datos no se entera hasta que la agregues manualmente.
+
+### Esquemas
+Actualiza los esquemas para que incluyan la información de las relaciones. Por ejemplo, `OrdenRead` debería incluir el `cliente_id` y una lista de productos asociados a esa orden. En `ClientRead` pueden incluir las órdenes asociadas. Puedes importar `ProductoRead` desde schemas.productos para usarlo en `OrdenRead`.
+
+**Importante**: Si dos schemas se importan entre sí, se produce un error de importación circular. Para evitarlo, utiliza modelos simplificados (como ClientSimple) y/o mueve los modelos compartidos a un archivo común.
+
+### Cambios en el router (`routers/ordenes.py`)
+
+Al utilizar SQLAlchemy para modelar una relación muchos a muchos, la tabla intermedia no se manipula directamente desde el código, sino a través de las relaciones definidas en los modelos.
+
+Esto permite que, al crear una orden, puedas enviar los productos desde el endpoint de órdenes (por ejemplo, como una lista de producto_ids). Luego, en el backend, esos IDs se usan para buscar los productos en la base de datos y asignarlos a la orden.
+
+De esta forma, no necesitas insertar manualmente en la tabla intermedia: simplemente trabajas con los objetos y SQLAlchemy se encarga automáticamente de crear las relaciones.
+
 
 
 ### ON DELETE CASCADE
