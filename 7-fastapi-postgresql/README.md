@@ -77,8 +77,10 @@ Dado que la tabla Orden y Cliente ya existen se puede generar un problema, dado 
 La opción más rápida es añadir la columna directamente en PostgreSQL con `ALTER TABLE`:
 
 ```sql
-ALTER TABLE ordenes ALTER COLUMN cliente_id SET NOT NULL; 
 ALTER TABLE ordenes ADD COLUMN cliente_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE;
+
+ALTER TABLE ordenes ALTER COLUMN cliente_id SET NOT NULL; 
+
 ```
 
 Luego utiliza `PATCH /ordenes/{orden_id}` para asignar el `cliente_id` a cada orden existente. Una vez que todas las filas tengan valor, puedes cambiarla a `NOT NULL`, para que a futuro no se permita tener órdenes sin cliente asignado.
