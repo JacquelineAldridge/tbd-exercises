@@ -83,6 +83,3 @@ async def eliminar_orden(orden_id: uuid.UUID, db: Session = Depends(get_db)):
     db.delete(orden)
     db.commit()
     
-## obtener producots con ordenes pendiente
-## obtener productos popular ()
-## productos que no tienen ordenes

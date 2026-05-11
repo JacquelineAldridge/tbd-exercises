@@ -1,6 +1,6 @@
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 import models
 
@@ -84,4 +84,62 @@ async def productos_con_stock_critico( db: Session = Depends(get_db)):
         select(models.Producto)
         .where(models.Producto.stock <6))
         .scalars().all() )
+    return productos
+
+@router.get("/productos-ordenes-pendientes", response_model=list[ProductRead])
+async def producots_ordenes_pendientes(db: Session = Depends(get_db)):
+    
+    # Forma 1
+    # productos = db.execute(select(models.Producto)).scalars().all()
+    
+    # print(productos)
+    # productos_pendientes = []
+    # for producto in productos:
+    #     pendiente = False
+    #     for o in producto.ordenes:
+    #         if(o.estado == "Pendiente"):
+    #             pendiente= True
+    #             break
+    #     if(pendiente):
+    #         productos_pendientes.append(producto)
+    #     print(producto)
+    
+    
+    #productos_pendientes = [producto for p in productos if(any(o.estado == "Pendiente" for o in p.ordenes))] 
+    
+    # Forma 2
+    productos_pendientes = (db.execute(
+        select(models.Producto)
+        .join(models.Producto.ordenes)
+        .where(models.Orden.estado == "Pendiente")
+        .distinct()
+        )
+        .scalars().all())
+    
+    return productos_pendientes
+
+@router.get("/populares", response_model=list[ProductRead])
+async def productos_populares(min_orders: int = 1, db: Session = Depends(get_db)):
+    
+    productos = (db.execute(
+        select(models.Producto)
+        .join(models.Producto.ordenes)
+        .group_by(models.Producto.id)
+        .having(func.count(models.Orden.id)> min_orders)
+        .distinct()
+        )
+        .scalars().all())
+    
+    return productos
+
+
+@router.get("/sin-ordenes", response_model=list[ProductRead])
+async def productos_sin_ordenes(db: Session = Depends(get_db)):
+
+    productos = db.execute(
+        select(models.Producto)
+        .outerjoin(models.Producto.ordenes)
+        .where(models.Orden.id.is_(None))
+    ).scalars().all()
+    
     return productos
