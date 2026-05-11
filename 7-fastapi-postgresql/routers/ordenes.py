@@ -26,7 +26,17 @@ async def obtener_orden(orden_id: uuid.UUID, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=OrdenRead, status_code=201)
 async def crear_orden(data: OrdenCreate, db: Session = Depends(get_db)):
-    nueva = models.Orden(**data.model_dump(exclude_none=True))
+    # recuperar los productos
+    productos = (db
+                 .execute(select(models.Producto)
+                  .where(models.Producto.id.in_(data.productos_ids)))
+                  
+                ).scalars().all()
+    
+    print(productos)
+    nueva = models.Orden(**data.model_dump(exclude_none=True, exclude={"productos_ids"}))
+    nueva.productos = productos
+    
     db.add(nueva)
     db.commit()
     db.refresh(nueva)
@@ -72,3 +82,7 @@ async def eliminar_orden(orden_id: uuid.UUID, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Orden no encontrada")
     db.delete(orden)
     db.commit()
+    
+## obtener producots con ordenes pendiente
+## obtener productos popular ()
+## productos que no tienen ordenes

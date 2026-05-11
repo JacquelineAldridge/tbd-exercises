@@ -4,11 +4,13 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
+from schemas.productos import ProductRead
 from schemas.utils import ClientBase
 class OrdenCreate(BaseModel):
     cantidad: int
     estado: str = "pendiente"
     
+    productos_ids: list[int] = None
     #creado_en: Optional[datetime] = None
 
 class OrdenRead(BaseModel):
@@ -21,6 +23,7 @@ class OrdenRead(BaseModel):
     client_id: Optional[int] 
     cliente: Optional[ClientBase]
     
+    productos: list[ProductRead] = None
 
 class OrdenUpdate(BaseModel):
     cantidad: Optional[int] = None
