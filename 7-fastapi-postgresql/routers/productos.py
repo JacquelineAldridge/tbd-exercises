@@ -16,7 +16,6 @@ async def listar_productos(db: Session = Depends(get_db)):
 
 @router.post("/", status_code=201)
 async def crear_producto(producto: ProductCreate ,db: Session = Depends(get_db)):
-    print(f"{producto} \n {producto.model_dump()}")
     nuevo_producto = models.Producto(**producto.model_dump())
     db.add(nuevo_producto)
     db.commit()
