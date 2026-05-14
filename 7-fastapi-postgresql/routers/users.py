@@ -1,14 +1,18 @@
-from fastapi import APIRouter, Depends, HTTPException
-from fastapi.security import OAuth2PasswordRequestForm
+from datetime import timedelta
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from database import get_db
-from schemas.users import UserCreate, UserRead
+from schemas.users import Token, TokenData, UserCreate, UserRead
 import models
-from security import crear_hash_password, verificar_password
+from security import crear_access_token, crear_hash_password, verificar_password, verificar_token
+from config import settings
 
 router = APIRouter(prefix="/users", tags=["Users"])
+oauth2_schema = OAuth2PasswordBearer(tokenUrl="users/login")
 
 @router.get("/", response_model=list[UserRead])
 async def listar_usuarios(db: Session = Depends(get_db)):
@@ -59,4 +63,26 @@ async def login(credenciales_usuario: OAuth2PasswordRequestForm = Depends(), db:
     if not verificar_password(credenciales_usuario.password, usuario.hashed_password ):
         raise HTTPException(status_code=401, detail="Credenciales no validas")
 
-    return {"mensaje":"Login exitoso"}
+    access_token = crear_access_token(data = {"sub": usuario.username, "id": usuario.id}, 
+                                      expires_delta=timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTOS))
+    
+    return Token(access_token=access_token, token_type="bearer") #{"mensaje":"Login exitoso"}
+
+def obtener_usuario_actual(token:str = Depends(oauth2_schema), db: Session = Depends(get_db)): 
+    payload = verificar_token(token)
+    
+    if payload is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail = "Token invalido o expirado",
+                            headers = {"WWW-Authenticate": "Bearer"}
+                            )
+    token_data = TokenData(id = payload.get("id"), username = payload.get("sub"))
+    
+    usuario = db.get(models.Usuario, token_data.id)
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    return usuario
+
+@router.get("/me", response_model=UserRead)
+def obtener_usuario(usuario_actual: models.Usuario = Depends(obtener_usuario_actual)):
+    return usuario_actual

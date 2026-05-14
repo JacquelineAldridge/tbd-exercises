@@ -19,3 +19,10 @@ class UserCreate(BaseModel):
     is_superuser: Optional[bool] = None
     password: str
     
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
+class TokenData(BaseModel):
+    username: Optional[str] = None
+    id: Optional[int] = None
