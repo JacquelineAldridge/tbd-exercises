@@ -2,6 +2,8 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict
 
+from schemas.utils import OrdenBase
+
 
 class ProductRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -12,10 +14,11 @@ class ProductRead(BaseModel):
     precio: int
     stock: int
     
+    ordenes: list[OrdenBase] = None
 class ProductCreate(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     
-    id: int
+    #id: int
     nombre: str
     descripcion: str
     precio: int
