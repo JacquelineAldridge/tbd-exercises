@@ -11,6 +11,8 @@ let usuarios = ref([
     { id: 3, nombre: "Juana", habilitada: false }
 ])
 const cambiarTerminos = () => aceptaTerminos.value = !aceptaTerminos.value
+const tarea = ref('')
+const tareas = ref([])
 </script>
 
 <template>
@@ -62,13 +64,21 @@ const cambiarTerminos = () => aceptaTerminos.value = !aceptaTerminos.value
     </v-row>
     <br> <br> <br> <br> <br> <br>
 
-    <div class="mt-4 mx-3 mb-16" style="margin-bottom: 80vh;">
-        <h3>Ejercicio: Lista de tareas </h3>
-        Crear una vista donde el usuario pueda ingresar una tarea y la agregue a una lista mediante un botón.
-        Las tareas deben desplegarse como una lista y si no hay tareas ingresadas debe mostrarse un mensaje de error.
-        Utiliza v-text-fild y v-list, junto con v-for y v-if
+    <v-container>
+        <div class="mt-4 mx-3 mb-16" style="margin-bottom: 80vh;">
+            <h3>Ejercicio: Lista de tareas </h3>
+            <p>
+                Implemente una funcionalidad que permita ingresar una tarea y agregarla automaticamente a una lista
+                mediante un botón.
+                Las tareas deben mostrarse como una lista y, si no hay tareas ingresadas debe mostrarse un mensaje de
+                error.
+            </p>
+            <p>
+                Utiliza <i>v-text-fild, v-list</i>, junto con <i>v-for</i> y <i>v-if</i>.
 
-    </div>
+            </p>
+        </div>
 
+    </v-container>
 
 </template>
