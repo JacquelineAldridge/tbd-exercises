@@ -4,7 +4,7 @@ defineProps({
     title: { type: String, requiered: true },
     email: { type: String, requiered: false },
     description: { type: String, requiered: false },
-    activo: { type: Boolean, default: false },
+    activo: { type: Boolean, default: true },
     sueldo: { type: Number, requiered: true }
 })
 
