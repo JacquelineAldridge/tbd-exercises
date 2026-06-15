@@ -4,6 +4,8 @@ import DirectivesView from '../views/DirectivesView.vue'
 import EventsView from '@/views/EventsView.vue'
 import Users from '@/views/Users.vue'
 import ProductsView from '@/views/ProductsView.vue'
+import LoginView from '@/views/LoginView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,6 +33,11 @@ const router = createRouter({
       path: '/products',
       name: 'products',
       component: ProductsView,
+    },
+     {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     }
   ],
 })

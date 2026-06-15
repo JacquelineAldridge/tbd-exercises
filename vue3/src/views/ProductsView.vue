@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Card from '@/components/Card.vue';
 
 const productos = ref([])
@@ -51,7 +51,12 @@ async function añadirProducto() {
     nuevoProducto.value = { nombre: '', descripcion: '', precio: 0, stock: 0 }
     console.log(JSON.stringify(nuevoProducto.value))
 }
-cargarProdutos()
+// cargarProdutos()
+
+
+onMounted(() => {
+    cargarProdutos()
+})
 </script>
 
 <template>
