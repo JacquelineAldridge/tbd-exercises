@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth';
 import Card from '@/components/Card.vue';
 
+const auth = useAuthStore()
 const productos = ref([])
 const nuevoProducto = ref({
     nombre: '',
@@ -61,7 +63,7 @@ onMounted(() => {
 
 <template>
     <v-container>
-
+{{ auth }}
         <h2 class="text-h5 mb-4">Listado de productos</h2>
         <v-row>
             <v-col v-for="p in productos" :key="p.id" cols="4">
